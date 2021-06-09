@@ -4,21 +4,11 @@
   "display_order_weight": -1.0,
   "label_template": "${COUNT}",
   "lock_behavior": "none",
-  "environment_variables": [
-  {
-      "name": "GITHUB",
-      "encrypted_value": ""
-    },
-    {
-              "name": "GDRIVE_CREDENTIALS_DATA",
-              "encrypted_value": ""
-	    }
-
-  ],
+  "environment_variables": [],
   "parameters": [],
   "materials": [
     {
-      "url": "https://github.com/tank4gun/MastersDiploma.git",
+      "url": "https://github.com/tank4gun/DockerPipelineNew.git",
       "branch": "master",
       "shallow_clone": false,
       "filter": {
@@ -133,16 +123,6 @@
               "run_if": "passed",
               "type": "exec"
             },
-            {
-              "command": "/bin/bash",
-              "timeout": -1.0,
-              "arguments": [
-                "-c",
-                "git push https://tank4gun:${GITHUB}@github.com/tank4gun/MastersDiploma.git"
-              ],
-              "run_if": "passed",
-              "type": "exec"
-            }
           ]
         }
       ]
@@ -168,16 +148,6 @@
           "artifacts": [],
           "timeout": 0.0,
           "tasks": [
-            {
-              "command": "/bin/bash",
-              "timeout": -1.0,
-              "arguments": [
-                "-c",
-                "git pull https://tank4gun:${GITHUB}@github.com/tank4gun/MastersDiploma.git"
-              ],
-              "run_if": "passed",
-              "type": "exec"
-            },
             {
               "command": "/bin/bash",
               "timeout": -1.0,
@@ -230,16 +200,6 @@
               "run_if": "passed",
               "type": "exec"
             },
-            {
-              "command": "/bin/bash",
-              "timeout": -1.0,
-              "arguments": [
-                "-c",
-                "git push https://tank4gun:${GITHUB}@github.com/tank4gun/MastersDiploma.git"
-              ],
-              "run_if": "passed",
-              "type": "exec"
-            }
           ]
         }
       ]
