@@ -39,7 +39,6 @@ def send_data():
     	    stds = np.array(list(map(float, coef_file.readline().split())))
         app.logger.debug("Got mean data {}, std data {}".format(means, stds))
         input_vector = np.array([float(request.form[name]) for name in input_names])
-    # print(input_vector, means)
         normalized_vector = (input_vector - means) / (stds * math.sqrt(442))
         prediction = new_regr.predict([normalized_vector])[0][0]
     else:
