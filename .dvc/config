@@ -1,0 +1,7 @@
+[core]
+    remote = minio_local
+['remote "minio_local"']
+    url = s3://minio_data/pipelinedata
+    endpointurl = http://localhost:9001
+    access_key_id = admin
+    secret_access_key = password
