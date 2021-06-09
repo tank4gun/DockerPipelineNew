@@ -1,8 +1,5 @@
 version: "3.9"
 services:
-        #install_service:
-        #user: root
-        #build: .
   flask_app:
     build:
       context: ./../app
@@ -11,7 +8,6 @@ services:
       - "5100:5100"
     user: root
   gocd-server:
-          #image: "gocd/gocd-server:v20.10.0"
     build: ./go_server
     user: root
     ports:
@@ -24,24 +20,18 @@ services:
         timeout: 10s
         retries: 15
   gocd-agent:
-          #image: "gocd/gocd-agent-ubuntu-18.04:v20.10.0"
-    build: # ./go_agent
+    build: 
       context: ./go_agent
       dockerfile: Dockerfile
-      # ports:
-      #- "5100:5100"
     user: root
     links:
       - "gocd-server"
-        #volumes:
-            #  - ./logs/:/godata/pipelines/ModelDeploy/app/
     depends_on:
       gocd-server:
         condition: service_healthy
     environment:
       GO_SERVER_URL: http://gocd-server:8153/go
       AGENT_AUTO_REGISTER_KEY: 'a72e68b4-95fa-4545-bbe8-0ebfb2b706d7'
-      #command: bash -c "apt -y install python3.7"
   elasticsearch:
     image: "elasticsearch:7.12.0"
     user: root
@@ -62,7 +52,6 @@ services:
         timeout: 10s
         retries: 15
   td-agent:
-          # image: "fluent/fluentd:v1.12.1-1.0"
     build:
       context: ./td_agent
       dockerfile: Dockerfile
@@ -76,15 +65,13 @@ services:
       FLUENTD_CONF: "td-agent.conf"
       ELASTICSEARCH_HOST: "elasticsearch"
       ELASTICSEARCH_PORT: 9200
-      #volumes:
-            # - ./td-agent.conf:/fluentd/etc/td-agent.conf
-    volumes_from:
-      - gocd-agent:ro
   kibana:
     image: "kibana:7.12.0"
     depends_on:
       elasticsearch:
         condition: service_healthy
+    ports:
+      - 5601:5601
     links:
       - elasticsearch
     volumes:
@@ -92,7 +79,6 @@ services:
     environment:
       server.port: 5601
       server.host: "0.0.0.0"
-      # ELASTICSEARCH_URL: "http://elasticsearch:9200"
   minio:
     restart: always
     image: minio/minio:RELEASE.2021-02-11T08-23-43Z.hotfix.b3c56b53f
