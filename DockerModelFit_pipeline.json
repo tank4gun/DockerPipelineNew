@@ -122,7 +122,7 @@
               ],
               "run_if": "passed",
               "type": "exec"
-            },
+            }
           ]
         }
       ]
@@ -199,7 +199,7 @@
               ],
               "run_if": "passed",
               "type": "exec"
-            },
+            }
           ]
         }
       ]
