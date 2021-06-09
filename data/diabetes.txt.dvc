@@ -1,0 +1,4 @@
+outs:
+- md5: c844b5a26aedfb2a121ba7c0022f70fb
+  size: 18495
+  path: diabetes.txt
