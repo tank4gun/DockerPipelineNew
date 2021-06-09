@@ -22,7 +22,7 @@ services:
         test: ["CMD", "curl", "-f", "http://gocd-server:8153/go"]
         interval: 5s
         timeout: 10s
-        retries: 5
+        retries: 15
   gocd-agent:
           #image: "gocd/gocd-agent-ubuntu-18.04:v20.10.0"
     build: # ./go_agent
@@ -60,7 +60,7 @@ services:
         test: ["CMD", "curl", "-f", "http://elasticsearch:9200/_cat/health"]
         interval: 5s
         timeout: 10s
-        retries: 5
+        retries: 15
   td-agent:
           # image: "fluent/fluentd:v1.12.1-1.0"
     build:
