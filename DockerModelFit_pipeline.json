@@ -122,32 +122,7 @@
               ],
               "run_if": "passed",
               "type": "exec"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "Testing",
-      "fetch_materials": true,
-      "never_cleanup_artifacts": false,
-      "clean_working_directory": false,
-      "approval": {
-        "type": "success",
-        "users": [],
-        "roles": [],
-        "allow_only_on_success": true
-      },
-      "environment_variables": [],
-      "jobs": [
-        {
-          "name": "Test",
-          "environment_variables": [],
-          "tabs": [],
-          "resources": [],
-          "artifacts": [],
-          "timeout": 0.0,
-          "tasks": [
+            },
             {
               "command": "/bin/bash",
               "timeout": -1.0,
