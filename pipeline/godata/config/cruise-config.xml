@@ -7,7 +7,7 @@
   </server>
   <config-repos>
     <config-repo id="test" pluginId="json.config.plugin">
-      <git url="https://github.com/tank4gun/DockerPipelineNew" username="tank4gun" />
+      <git url="https://github.com/tank4gun/DockerPipelineNew" />
       <configuration>
         <property>
           <key>pipeline_pattern</key>
