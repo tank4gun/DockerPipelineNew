@@ -8,6 +8,7 @@ import time
 import pandas as pd
 import math
 import numpy as np
+import requests
 from sklearn.pipeline import Pipeline
 from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import StandardScaler
@@ -50,6 +51,8 @@ with open("../data/Linear-regression_{time}.node/Coef_{time}.txt".format(time=cu
 
 with open("../data/Linear-regression_{time}.node/R2.txt".format(time=cur_time), "w") as r2_score_file:
     r2_score_file.write(str(regr.score(diabetes_X_test, diabetes_y_test)))
+
+requests.post("http://td-agent:9880/train_log", json={"logtime": current_datetime.isoformat(sep=" "), "coefs": regr.coef_.tolist()})
 
 with open("../train_result.txt", "a+") as log_file: 
     log_file.write("[{time}]: {coef}\n".format(time=current_datetime.isoformat(sep=" "), coef=regr.coef_.tolist()))
