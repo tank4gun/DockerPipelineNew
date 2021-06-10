@@ -55,12 +55,12 @@ def send_data():
         )
     )
     # requests.post("http://td-agent:9880/app_log", json={"version": app.config["deploy_version"], "input_vector": request.form, "prediction": prediction})
-    requests.post("http://td-agent:9880/app_log", data="{time} Deploy version: {version}, input vector: {input_vector}, prediction: {prediction}".format(
+    requests.post("http://td-agent:9880/app_log", json={"log": "{time} Deploy version: {version}, input vector: {input_vector}, prediction: {prediction}".format(
             time=datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S"),
             version=app.config["deploy_version"],
             input_vector=input_vector.tolist(),
             prediction=prediction,
         )
-)
+    })
     return render_template("result_screen.html", model_prediction=prediction)
     
