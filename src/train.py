@@ -53,7 +53,3 @@ with open("../data/Linear-regression_{time}.node/R2.txt".format(time=cur_time), 
     r2_score_file.write(str(regr.score(diabetes_X_test, diabetes_y_test)))
 
 requests.post("http://td-agent:9880/train_log", json={"log": "[{time}]: {coef}".format(time=current_datetime.isoformat(sep=" "), coef=regr.coef_.tolist())})
-
-with open("../train_result.txt", "a+") as log_file: 
-    log_file.write("[{time}]: {coef}\n".format(time=current_datetime.isoformat(sep=" "), coef=regr.coef_.tolist()))
-
