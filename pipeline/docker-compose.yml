@@ -21,9 +21,11 @@ services:
         retries: 15
   gocd-agent:
     build: 
-      context: ./go_agent
+      context: ./../
       dockerfile: Dockerfile
     user: root
+    volumes:
+      - ./../:/go/pipelines/ML_Pipeline/
     links:
       - "gocd-server"
     depends_on:
@@ -33,7 +35,7 @@ services:
       GO_SERVER_URL: http://gocd-server:8153/go
       AGENT_AUTO_REGISTER_KEY: 'a72e68b4-95fa-4545-bbe8-0ebfb2b706d7'
   elasticsearch:
-    image: "elasticsearch:7.12.0"
+    image: "docker.elastic.co/elasticsearch/elasticsearch-oss:7.10.2"
     user: root
     ports:
       - 9200:9200
@@ -66,7 +68,7 @@ services:
       ELASTICSEARCH_HOST: "elasticsearch"
       ELASTICSEARCH_PORT: 9200
   kibana:
-    image: "kibana:7.12.0"
+    image: "docker.elastic.co/kibana/kibana-oss:7.10.2"
     depends_on:
       elasticsearch:
         condition: service_healthy
