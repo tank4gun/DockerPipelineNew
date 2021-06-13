@@ -4,6 +4,8 @@ services:
     build:
       context: ./../app
       dockerfile: Dockerfile
+    volumes:
+      - ./../data:/data
     ports:
       - "5100:5100"
     user: root
@@ -21,7 +23,7 @@ services:
         retries: 15
   gocd-agent:
     build: 
-      context: ./../
+      context: ./go_agent
       dockerfile: Dockerfile
     user: root
     volumes:
@@ -67,6 +69,17 @@ services:
       FLUENTD_CONF: "td-agent.conf"
       ELASTICSEARCH_HOST: "elasticsearch"
       ELASTICSEARCH_PORT: 9200
+  curl-container:
+    build:
+      context: ./curl_container
+      dockerfile: Dockerfile
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+      kibana:
+        condition: service_healthy
+    command: sh -c "./fluentd/create_indices.sh"
+    user: root
   kibana:
     image: "docker.elastic.co/kibana/kibana-oss:7.10.2"
     depends_on:
@@ -81,6 +94,11 @@ services:
     environment:
       server.port: 5601
       server.host: "0.0.0.0"
+    healthcheck:
+        test: ["CMD", "curl", "-f", "http://kibana:5601/"]
+        interval: 5s
+        timeout: 10s
+        retries: 15
   minio:
     restart: always
     image: minio/minio:RELEASE.2021-02-11T08-23-43Z.hotfix.b3c56b53f

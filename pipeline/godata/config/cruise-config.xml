@@ -16,7 +16,7 @@
             <tasks>
               <exec command="/bin/bash">
                 <arg>-c</arg>
-                <arg>dvc pull</arg>
+                <arg>dvc pull -f</arg>
                 <runif status="passed" />
               </exec>
               <exec command="/bin/bash" workingdir="src/">
