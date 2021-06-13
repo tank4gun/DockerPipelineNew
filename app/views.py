@@ -9,6 +9,7 @@ from mleap.sklearn.preprocessing.data import FeatureExtractor
 import pandas as pd
 import math
 import numpy as np
+import os
 import requests
 from sklearn.pipeline import Pipeline
 from sklearn.linear_model import LinearRegression
@@ -53,7 +54,7 @@ def send_data():
             prediction=prediction,
         )
     )
-    requests.post("http://td-agent:9880/app_log", json={"log": "{time} Deploy version: {version}, input vector: {input_vector}, prediction: {prediction}".format(
+    requests.post("http://{td_agent_host}:9880/app_log".format(td_agent_host=os.environ["TD_AGENT_HOST"]), json={"log": "{time} Deploy version: {version}, input vector: {input_vector}, prediction: {prediction}".format(
             time=datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S"),
             version=app.config["deploy_version"],
             input_vector=input_vector.tolist(),
